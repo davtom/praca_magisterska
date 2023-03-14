@@ -1,0 +1,63 @@
+html{
+    
+    overflow: auto;
+    padding-bottom: 20px;
+    
+}
+
+body{
+
+                background-repeat: no-repeat;
+                background-size: cover;
+                
+            }
+
+@keyframes opacityc{
+    
+    0% { 
+        
+        opacity: 0;
+        
+    }
+    
+    100% { 
+        
+        opacity: 1;
+    
+    }
+    
+    
+}
+
+.body_load{
+    
+    opacity: 0;
+    animation: 0.1s both opacityc linear;
+      
+    
+}
+
+#loader { 
+            border: 12px solid #f3f3f3; 
+            border-radius: 50%; 
+            border-top: 12px solid #444444; 
+            width: 70px; 
+            height: 70px; 
+            animation: spin 1s linear infinite;
+            z-index: 20;
+        } 
+          
+        @keyframes spin { 
+            100% { 
+                transform: rotate(360deg); 
+            } 
+        } 
+          
+        .center { 
+            position: absolute; 
+            top: 0; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            margin: auto; 
+        } 

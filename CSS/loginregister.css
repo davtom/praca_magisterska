@@ -1,0 +1,159 @@
+html, body, ul, li { margin: 0; padding: 0; }
+
+h1, h2, h3, h4, ul, li, ol, p { margin:0; padding:0; font-size: 8vw;
+line-height: 1.6em; }
+
+::-webkit-scrollbar {
+display: none;
+}
+
+@viewport {
+  max-zoom: 3;
+}
+
+.noselect {
+    
+  -webkit-touch-callout: none; 
+    -webkit-user-select: none; 
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none; 
+            user-select: none; 
+    
+}
+
+#landscape{
+    
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: #000000;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    z-index: 20000;
+    transition: all 1s ease-in-out;
+    
+}
+
+#landscape p{
+    
+    color: aliceblue;
+    height: 100vh;
+    left: 10vw;
+    position: fixed;
+    top: 40vh;
+    width: 100vw;
+    background: black;
+    
+}
+
+html {
+
+    height: 100vh;
+    width: 100vw;
+    cursor: default;
+    font-family: Helvetica, "Trebuchet MS", Verdana, sans-serif;
+    
+    
+}
+
+body {
+    
+    background: #F0F0F0;
+    height: 100%;
+    width: 100%;
+    cursor: default;
+    font-size: 4vw;
+    display: flex;
+    position: absolute;
+    
+}
+
+.wrapper{
+    
+    width: 100% !important;
+    display: flex;
+    position: relative;
+    z-index: 2;
+}
+
+table,tr,th,td{
+    
+    border: 0;
+    margin: auto;
+    
+}
+
+input[type=text],input[type=password],input[type=number]{
+    
+    height: 7vw;
+    width: 70vw;
+    border-radius: 1vw;
+    
+}
+
+input[type=text]:invalid,input[type=password]:invalid{
+    
+    height: 7vw;
+    width: 70vw;
+    border-radius: 1vw;
+    border-color: red;
+    
+}
+
+input[type=submit]{
+    
+    height: 7vw;
+    width: 72vw;
+    font-size: 100%;
+    font-weight: bold;
+    border-radius: 1vw;
+    
+}
+
+.help-block{
+    
+    margin-left: 2vw;
+    color: darkred;
+    font-size: 2.5vw;
+    
+}
+
+.style_block_top{
+    
+    display: flex;
+    position: fixed;
+    height: 50vh;
+    width: 100vh;
+    overflow: hidden;
+    background: red;
+    box-shadow: 10px -1px 5px 5px black;
+    transform: rotate(167deg) translate(0vh,48vh);
+    
+}
+
+.style_block_bot{
+    
+    z-index: 1;
+    bottom: 0;
+    display: flex;
+    position: fixed;
+    height: 50vh;
+    width: 100vh;
+    overflow: hidden;
+    background: red;
+    box-shadow: 10px 5px 5px black;
+    transform: rotate(-165deg) translate(10vh,-48vh);
+    
+}
+
+.to_register{
+    
+    z-index: 1;
+    text-align: center;
+    font-size: 2.4vw;
+    color: dimgray;
+    text-decoration: none;
+    
+}
