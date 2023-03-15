@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="description" content="">
+            <link rel="stylesheet" href="../CSS/load.css">
+            <link rel="stylesheet" href="../CSS/loginregister.css">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+        <style type="text/css">
+        </style>
+    </head>
+    <body class="body_load">
+        <div class="wrapper">
+
+
+            <table>
+                <tr><td><h2>Logowanie</h2></td></tr>
+                <tr><td><label>Login:</label><span class="help-block"><a id="username_err"></a></span></td></tr>
+                    <tr><td><input type="text" name="username" value=""></td></tr>
+                <tr>
+                <tr><td><label>Hasło:</label><span class="help-block"><a id="password_err"></a></span></td></tr>
+                    <tr><td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" name='login' value="Zaloguj" onclick="Login()"></td>
+                </tr>
+
+                <tr>
+                    <td><a href="register.html"><input type="submit" value="Zarejestruj się"></a></td>
+                </tr>
+                <tr></tr>
+                <tr></tr>
+            </table>
+        </div>
+
+        <div class="style_block_top"></div>
+        <div class="style_block_bot"></div>
+        <div id="landscape"><p>Obróć urządzenie</p></div>
+    </body>
+
+    <script src="./config.js"></script>
+    <script>
+        function Login(){
+
+            const username = document.getElementById('username');
+
+            // Zapytanie do bazy danych
+            connection.query('SELECT * FROM users WHERE username = ?', [username], (error, results, fields) => {
+              if (error) {
+                console.error('Błąd zapytania: ' + error.stack);
+                return;
+              }
+
+              // Jeśli znaleziono użytkownika, wyświetl jego dane
+              if (results.length > 0) {
+                alert('Znaleziono użytkownika.');
+                //console.log('ID: ' + results[0].id);
+                //console.log('Nazwa użytkownika: ' + results[0].username);
+                //console.log('Hasło: ' + results[0].password);
+              } else {
+                alert('Nie znaleziono użytkownika o podanej nazwie.');
+              }
+            });
+        }
+        
+        window.addEventListener("resize", function() {
+        if( window.outerWidth > window.outerHeight )
+                {
+                    window.scrollTo(1,1);
+                    $('#landscape').show();
+                    lockScroll();
+                }
+                else{
+                    $('#landscape').hide();
+                    unLockScroll();
+                }
+        }, false);
+
+            function lockScroll()
+        {
+            $(document).bind("touchmove",function(event){
+                                event.preventDefault();
+            });
+        }
+        function unLockScroll()
+        {
+            $(document).unbind("touchmove");
+        }
+    </script>
+
+</html>
