@@ -21,4 +21,20 @@ const connection = mysql.createPool({
   database: 'd4vez'
 });
 
+app.get('/:id', (req, res) => {
+    connection.getConnection((err, connection) => {
+        if(err) throw err
+        connection.query('SELECT * FROM users WHERE id = ?', [req.params.id], (err, rows) => {
+            connection.release() // return the connection to pool
+            if (!err) {
+                res.send(rows)
+            } else {
+                console.log(err)
+            }
+            
+            console.log('The data from beer table are: \n', rows)
+        })
+    })
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`))
