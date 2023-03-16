@@ -41,12 +41,22 @@
         <div id="landscape"><p>Obróć urządzenie</p></div>
     </body>
 
-    <script src="./config.js"></script>
-    <script>
-        function Login(){
-            alert('Tu będzie kto się zalogował.');
+    <script type="module">
+        import { Select } from './config.js';
+    </script>
+    
+    <!--<script type="module">
+        const username = document.getElementById('username');
+        
+        if(username.value === 1){
+            import { Select } from './config.js';
+        } else {
+            alert('Podano złe!');
         }
         
+    </script>-->
+    
+    <script>
         window.addEventListener("resize", function() {
         if( window.outerWidth > window.outerHeight )
                 {
@@ -62,13 +72,13 @@
 
             function lockScroll()
         {
-            $(document).bind("touchmove",function(event){
+            $(document).bind('touchmove',function(event){
                                 event.preventDefault();
             });
         }
         function unLockScroll()
         {
-            $(document).unbind("touchmove");
+            $(document).unbind('touchmove');
         }
     </script>
 
