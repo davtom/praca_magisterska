@@ -44,26 +44,7 @@
     <script src="./config.js"></script>
     <script>
         function Login(){
-
-            const username = document.getElementById('username');
-
-            // Zapytanie do bazy danych
-            connection.query('SELECT * FROM users WHERE username = ?', [username], (error, results, fields) => {
-              if (error) {
-                console.error('Błąd zapytania: ' + error.stack);
-                return;
-              }
-
-              // Jeśli znaleziono użytkownika, wyświetl jego dane
-              if (results.length > 0) {
-                alert('Znaleziono użytkownika.');
-                //console.log('ID: ' + results[0].id);
-                //console.log('Nazwa użytkownika: ' + results[0].username);
-                //console.log('Hasło: ' + results[0].password);
-              } else {
-                alert('Nie znaleziono użytkownika o podanej nazwie.');
-              }
-            });
+            alert('Tu będzie kto się zalogował.');
         }
         
         window.addEventListener("resize", function() {
