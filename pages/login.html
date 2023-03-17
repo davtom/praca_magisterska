@@ -40,23 +40,42 @@
         <div class="style_block_bot"></div>
         <div id="landscape"><p>Obróć urządzenie</p></div>
     </body>
-
-    <script type="module">
-        import { Select } from './config.js';
-    </script>
-    
-    <!--<script type="module">
-        const username = document.getElementById('username');
-        
-        if(username.value === 1){
-            import { Select } from './config.js';
-        } else {
-            alert('Podano złe!');
-        }
-        
-    </script>-->
     
     <script>
+        function Login() {
+            var username = document.getElementsByName('username')[0].value;
+            var password = document.getElementsByName('password')[0].value;
+            
+            if (username === '' && password === '') {
+                document.getElementById('username_err').innerHTML = 'Nie podano loginu';
+                document.getElementById('password_err').innerHTML = 'Nie podano hasła';
+                return false;
+            } else if (username === '') {
+                document.getElementById('username_err').innerHTML = 'Nie podano loginu';
+                document.getElementById('password_err').innerHTML = '';
+                return false;
+            } else if (password === '') {
+                document.getElementById('username_err').innerHTML = '';
+                document.getElementById('password_err').innerHTML = 'Nie podano hasła';
+                return false;
+            }
+            else {
+                document.getElementById('username_err').innerHTML = '';
+                document.getElementById('password_err').innerHTML = '';
+            }
+
+            // wywołanie API i sprawdzenie czy użytkownik istnieje w bazie danych
+            // ...
+
+            // jeżeli użytkownik istnieje i hasło jest poprawne
+            // przekieruj do pliku main.html
+            if (username == 'D4vez' && password == '30.Dz/97') {
+                window.location.href = "main.html";
+            } else {
+                alert("Błędny login lub hasło");
+            }
+        }
+        
         window.addEventListener("resize", function() {
         if( window.outerWidth > window.outerHeight )
                 {
