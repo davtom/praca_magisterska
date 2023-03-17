@@ -65,15 +65,36 @@
             }
 
             // wywołanie API i sprawdzenie czy użytkownik istnieje w bazie danych
-            // ...
-
-            // jeżeli użytkownik istnieje i hasło jest poprawne
-            // przekieruj do pliku main.html
-            if (username == 'D4vez' && password == '30.Dz/97') {
-                window.location.href = "main.html";
-            } else {
-                alert("Błędny login lub hasło");
-            }
+            $.ajax({
+                type: "POST",
+                url: "config.php",
+                dataType: "json",
+                data: {
+                    'username': username,
+                    'password': password
+                },
+                success: function(response) {
+                    var query = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'";
+                    $.post("config.php", {query: query})
+                        .done(function(data) {
+                            if (data.length == 0) {
+                                console.log("rr");
+                                alert("Błędny login lub hasło");
+                            } else if (username == 'D4vez' && password == '333') {
+                                // użytkownik istnieje i hasło jest poprawne
+                                // przekierowanie do pliku main.html
+                                window.location.href = "main.html";
+                            } else {
+                                alert("Błędny login lub hasło");
+                            }
+                        
+                    });
+                },
+                error: function(xhr, status, error) {
+                    // błąd połączenia z bazą danych
+                    console.log("Błąd połączenia z bazą danych: " + error);
+                }
+            });
         }
         
         window.addEventListener("resize", function() {

@@ -1,7 +1,19 @@
- <?php
-$link = new mysqli("mysql.cba.pl","d4vez","30.Dz/97.","d4vez");
-if ($link -> connect_errno) {
-  echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
-  exit();
+<?php
+// Połączenie do bazy danych
+$link = mysqli_connect("localhost", "root", "", "d4vez");
+
+// Sprawdzenie połączenia
+if ($link === false) {
+    die("Błąd połączenia: " . mysqli_connect_error());
 }
-?> 
+
+// Zwrócenie połączenia do bazy w formacie JSON
+echo json_encode([
+    'status' => 'success',
+    'message' => 'Połączenie do bazy danych nawiązane.',
+    'connection' => $link
+]);
+
+// Zamknięcie połączenia
+mysqli_close($link);
+?>
