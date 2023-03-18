@@ -15,7 +15,6 @@
     <body class="body_load">
         <div class="wrapper">
 
-
             <table>
                 <tr><td><h2>Logowanie</h2></td></tr>
                 <tr><td><label>Login:</label><span class="help-block"><a id="username_err"></a></span></td></tr>
@@ -63,38 +62,25 @@
                 document.getElementById('username_err').innerHTML = '';
                 document.getElementById('password_err').innerHTML = '';
             }
+            
+            console.log("Próba logowania dla użytkownika: " + username + " i hasła: " + password);
 
             // wywołanie API i sprawdzenie czy użytkownik istnieje w bazie danych
-            $.ajax({
-                type: "POST",
-                url: "config.php",
-                dataType: "json",
-                data: {
-                    'username': username,
-                    'password': password
-                },
-                success: function(response) {
-                    var query = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'";
-                    $.post("config.php", {query: query})
-                        .done(function(data) {
-                            if (data.length == 0) {
-                                console.log("rr");
-                                alert("Błędny login lub hasło");
-                            } else if (username == 'D4vez' && password == '333') {
-                                // użytkownik istnieje i hasło jest poprawne
-                                // przekierowanie do pliku main.html
-                                window.location.href = "main.html";
-                            } else {
-                                alert("Błędny login lub hasło");
-                            }
-                        
-                    });
-                },
-                error: function(xhr, status, error) {
-                    // błąd połączenia z bazą danych
-                    console.log("Błąd połączenia z bazą danych: " + error);
+            // wysłanie zapytania GET i sprawdzenie czy użytkownik istnieje w bazie danych
+            var query = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'";
+            console.log("Zapytanie do bazy danych: " + query);
+            $.get("config.php?query=" + query, function(data) {
+                console.log("Odpowiedź serwera: " + data);
+                if (data.length == 0) {
+                    alert("Błędny login lub hasło");
+                } else if (data.length > 0 && data[0].password === password) {
+                    // użytkownik istnieje i hasło jest poprawne
+                    //zapisanie informacji o zalogowaniu w sessionStorage
+                    sessionStorage.setItem("loggedIn", "true");
+                    // przekierowanie do pliku main.html
+                    window.location.href = "main.html";
                 }
-            });
+            }, 'json');
         }
         
         window.addEventListener("resize", function() {

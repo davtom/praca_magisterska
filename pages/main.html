@@ -18,7 +18,7 @@
     <div class="style_block_bot"></div>
     
     <div class="account_display">
-        <p class="name_account_display">Witaj, <br/><a id="user"></a></p>
+        <p class="name_account_display">Witaj, <br/><a id="username"></a></p>
                 <img class="logo" src="../img/logo.png">
     
     </div>
@@ -26,7 +26,7 @@
     <div id="display">
     
         <a href="select_car.html"><div class="btn_block">Moje samochody</div></a>
-        <a href="logout.html"><div class="btn_block">Wyloguj</div></a>
+        <a href="logout.js"><div class="btn_block">Wyloguj</div></a>
     
     </div>
     
@@ -34,6 +34,12 @@
     </body>
     
     <script>
+        if(sessionStorage.getItem("loggedIn") == "true") {
+            document.getElementById("username").textContent = sessionStorage.getItem("username");
+        } else {
+            window.location.href = "login.html";
+        }
+        
         window.addEventListener("resize", function() {
         if( window.outerWidth > window.outerHeight )
                   {

@@ -7,13 +7,25 @@ if ($link === false) {
     die("Błąd połączenia: " . mysqli_connect_error());
 }
 
-// Zwrócenie połączenia do bazy w formacie JSON
-echo json_encode([
-    'status' => 'success',
-    'message' => 'Połączenie do bazy danych nawiązane.',
-    'connection' => $link
-]);
+// Pobranie zapytania z parametru GET
+$query = $_GET["query"];
 
-// Zamknięcie połączenia
+// Wykonanie zapytania
+$result = mysqli_query($link, $query);
+
+// Sprawdzenie czy zapytanie się powiodło
+if ($result === false) {
+    die("Błąd zapytania do bazy danych: " . mysqli_error($link));
+}
+
+// Zamiana wyników na tablicę asocjacyjną i zwrócenie w formacie JSON
+$rows = array();
+while ($row = mysqli_fetch_assoc($result)) {
+    $rows[] = $row;
+}
+echo json_encode($rows);
+
+// Zwolnienie wyników i zamknięcie połączenia
+mysqli_free_result($result);
 mysqli_close($link);
 ?>
