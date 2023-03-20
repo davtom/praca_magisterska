@@ -17,12 +17,10 @@
 </body>
     
 <script>
-    if(sessionStorage.getItem("loggedIn") !== "true"){
-        window.location.href = "pages/login.html";
-    }
-    else{
-        window.location.href = "pages/main.html";
-    }
+    // usuwanie danych z sesji
+    sessionStorage.clear();
+    // przekierowanie na stronę logowania
+    window.location.href = "login.html";
 </script>
     
 </html>

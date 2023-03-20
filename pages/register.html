@@ -17,7 +17,6 @@
     <div class="wrapper">
 
         <table>
-        <form action="" method="post">
             <tr><td><h2>Rejestracja</h2></td></tr>
             <tr>
                 <tr><td><label>Login:</label><span class="help-block"><a id="username_err"></a> <a id="registered"></a></span></td></tr>
@@ -35,9 +34,8 @@
                 <tr><td><input type="text" name="surname" value=""></td></tr>
             <tr>
             <tr>
-                <td><input type="submit" name='register' value="Zarejestruj się"></td>
+                <td><input type="submit" name='register' value="Zarejestruj się" onclick="Rejestracja()"></td>
             </tr>
-        </form>
             <tr>
                 <td><a href="login.html"><input type="submit" value="Logowanie"></a></td>
             </tr>
@@ -49,32 +47,59 @@
     <div class="style_block_top"></div>
     <div class="style_block_bot"></div>
 
-    <div id="landscape"><p>Obróć urządzenie</p></div>
     </body>
 
     <script>
-        window.addEventListener("resize", function() {
-        if( window.outerWidth > window.outerHeight )
-                  {
-                      window.scrollTo(1,1);
-                      $('#landscape').show();
-                      lockScroll();
-                  }
-                  else{
-                       $('#landscape').hide();
-                       unLockScroll();
-                  }
-        }, false);
-
-            function lockScroll()
-        {
-             $(document).bind("touchmove",function(event){
-                                event.preventDefault();
-             });
-        }
-        function unLockScroll()
-        {
-            $(document).unbind("touchmove");
+        function Rejestracja() {
+            var username = document.getElementsByName('username')[0].value;
+            var password = document.getElementsByName('password')[0].value;
+            var name = document.getElementsByName('name')[0].value;
+            var surname = document.getElementsByName('surname')[0].value;
+            
+            //walidacja pola username
+            if (username === '') {
+                document.getElementById('username_err').innerHTML = 'Nie podano loginu';
+            } else {
+                document.getElementById('username_err').innerHTML = '';
+            }
+            
+            //walidacja pola password
+            if (password === '') {
+                document.getElementById('password_err').innerHTML = 'Nie podano hasła';
+            } else {
+                document.getElementById('password_err').innerHTML = '';
+            }
+            
+            //walidacja pola name
+            if (name === '') {
+                document.getElementById('name_err').innerHTML = 'Nie podano imienia';
+            } else {
+                document.getElementById('name_err').innerHTML = '';
+            }
+            
+            //walidacja pola surname
+            if (surname === '') {
+                document.getElementById('surname_err').innerHTML = 'Nie podano nazwiska';
+            } else {
+                document.getElementById('surname_err').innerHTML = '';
+            }
+            
+            //jeżeli wszystko jest wypełnione
+            if (username != '' && password != '' && name != '' && surname != '') {
+                var query = "SELECT * FROM users WHERE username='" + username + "' UNION INSERT INTO users (username,password,name,surname) VALUES ('" + username + "','" + password + "','" + name + "','" + surname + "')";
+                console.log("Zapytanie do bazy danych: " + query);
+                $.get("config.php?query=" + query, function(data) {
+                    console.log("Odpowiedź serwera: " + data);
+                    if (data.length == 0) {
+                        alert("Konto użytkownika zostało utworzone pomyślnie");
+                        window.location.href = "login.html"
+                    } else if (data.length > 0) {
+                        alert("Nazwa użytkownika jest już zajęta");
+                    }
+                }, 'json');
+            } else {
+                
+            }
         }
     </script>
 

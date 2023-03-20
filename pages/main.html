@@ -18,7 +18,7 @@
     <div class="style_block_bot"></div>
     
     <div class="account_display">
-        <p class="name_account_display">Witaj, <br/><a id="username"></a></p>
+        <p class="name_account_display">Witaj, <br/><span id="username"></span></p>
                 <img class="logo" src="../img/logo.png">
     
     </div>
@@ -26,42 +26,22 @@
     <div id="display">
     
         <a href="select_car.html"><div class="btn_block">Moje samochody</div></a>
-        <a href="logout.js"><div class="btn_block">Wyloguj</div></a>
+        <a href="logout.html"><div class="btn_block">Wyloguj</div></a>
     
     </div>
     
-    <div id="landscape"><p>Obróć urządzenie</p></div>
     </body>
     
     <script>
         if(sessionStorage.getItem("loggedIn") == "true") {
-            document.getElementById("username").textContent = sessionStorage.getItem("username");
+            window.onload = function() {
+                // pobierz nazwę użytkownika z sessionStorage i wyświetl ją na stronie
+                var name = sessionStorage.getItem("userName");
+                var surname = sessionStorage.getItem("userSurname");
+                document.getElementById("username").innerHTML = name + " " + surname;
+            };
         } else {
             window.location.href = "login.html";
-        }
-        
-        window.addEventListener("resize", function() {
-        if( window.outerWidth > window.outerHeight )
-                  {
-                      window.scrollTo(1,1);
-                      $('#landscape').show();
-                      lockScroll();
-                  }
-                  else{
-                       $('#landscape').hide();
-                       unLockScroll();
-                  }
-        }, false);
-
-            function lockScroll()
-        {
-             $(document).bind("touchmove",function(event){
-                                event.preventDefault();
-             });
-        }
-        function unLockScroll()
-        {
-            $(document).unbind("touchmove");
         }
     </script>
     

@@ -37,7 +37,6 @@
 
         <div class="style_block_top"></div>
         <div class="style_block_bot"></div>
-        <div id="landscape"><p>Obróć urządzenie</p></div>
     </body>
     
     <script>
@@ -45,66 +44,46 @@
             var username = document.getElementsByName('username')[0].value;
             var password = document.getElementsByName('password')[0].value;
             
-            if (username === '' && password === '') {
+            //walidacja pola username
+            if (username === '') {
                 document.getElementById('username_err').innerHTML = 'Nie podano loginu';
-                document.getElementById('password_err').innerHTML = 'Nie podano hasła';
-                return false;
-            } else if (username === '') {
-                document.getElementById('username_err').innerHTML = 'Nie podano loginu';
-                document.getElementById('password_err').innerHTML = '';
-                return false;
-            } else if (password === '') {
+            } else {
                 document.getElementById('username_err').innerHTML = '';
-                document.getElementById('password_err').innerHTML = 'Nie podano hasła';
-                return false;
             }
-            else {
-                document.getElementById('username_err').innerHTML = '';
+            
+            //walidacja pola password
+            if (password === '') {
+                document.getElementById('password_err').innerHTML = 'Nie podano hasła';
+            } else {
                 document.getElementById('password_err').innerHTML = '';
             }
             
             console.log("Próba logowania dla użytkownika: " + username + " i hasła: " + password);
 
-            // wywołanie API i sprawdzenie czy użytkownik istnieje w bazie danych
-            // wysłanie zapytania GET i sprawdzenie czy użytkownik istnieje w bazie danych
-            var query = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'";
-            console.log("Zapytanie do bazy danych: " + query);
-            $.get("config.php?query=" + query, function(data) {
-                console.log("Odpowiedź serwera: " + data);
-                if (data.length == 0) {
-                    alert("Błędny login lub hasło");
-                } else if (data.length > 0 && data[0].password === password) {
-                    // użytkownik istnieje i hasło jest poprawne
-                    //zapisanie informacji o zalogowaniu w sessionStorage
-                    sessionStorage.setItem("loggedIn", "true");
-                    // przekierowanie do pliku main.html
-                    window.location.href = "main.html";
-                }
-            }, 'json');
-        }
-        
-        window.addEventListener("resize", function() {
-        if( window.outerWidth > window.outerHeight )
-                {
-                    window.scrollTo(1,1);
-                    $('#landscape').show();
-                    lockScroll();
-                }
-                else{
-                    $('#landscape').hide();
-                    unLockScroll();
-                }
-        }, false);
-
-            function lockScroll()
-        {
-            $(document).bind('touchmove',function(event){
-                                event.preventDefault();
-            });
-        }
-        function unLockScroll()
-        {
-            $(document).unbind('touchmove');
+            //jeżeli wszystko jest wypełnione
+            if (username != '' && password != '') {
+                // wywołanie API i sprawdzenie czy użytkownik istnieje w bazie danych
+                // wysłanie zapytania GET i sprawdzenie czy użytkownik istnieje w bazie danych
+                var query = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'";
+                console.log("Zapytanie do bazy danych: " + query);
+                $.get("config.php?query=" + query, function(data) {
+                    console.log("Odpowiedź serwera: " + data);
+                    if (data.length == 0) {
+                        alert("Błędny login lub hasło");
+                    } else if (data.length > 0 && data[0].password === password) {
+                        // użytkownik istnieje i hasło jest poprawne
+                        //zapisanie informacji o zalogowaniu w sessionStorage
+                        sessionStorage.setItem("loggedIn", "true");
+                        sessionStorage.setItem("userId", data[0].id);
+                        sessionStorage.setItem("userName", data[0].name);
+                        sessionStorage.setItem("userSurname", data[0].surname);
+                        // przekierowanie do pliku main.html
+                        window.location.href = "main.html";
+                    }
+                }, 'json');
+            } else {
+                
+            }
         }
     </script>
 
