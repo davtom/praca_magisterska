@@ -8,10 +8,10 @@ if ($link === false) {
 }
 
 // Pobranie zapytania z parametru GET
-$query = $_GET["query"];
+$user = $_GET["user"];
 
 // Wykonanie zapytania
-$result = mysqli_query($link, $query);
+$result = mysqli_query($link, $user);
 
 // Sprawdzenie czy zapytanie się powiodło
 if ($result === false) {

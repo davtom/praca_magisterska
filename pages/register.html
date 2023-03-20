@@ -86,13 +86,17 @@
             
             //jeżeli wszystko jest wypełnione
             if (username != '' && password != '' && name != '' && surname != '') {
-                var query = "SELECT * FROM users WHERE username='" + username + "' UNION INSERT INTO users (username,password,name,surname) VALUES ('" + username + "','" + password + "','" + name + "','" + surname + "')";
-                console.log("Zapytanie do bazy danych: " + query);
-                $.get("config.php?query=" + query, function(data) {
+                var user = "SELECT * FROM users WHERE username='" + username + "'";
+                var n_user = "INSERT INTO users (username,password,name,surname) VALUES ('" + username + "','" + password + "','" + name + "','" + surname + "')";
+                console.log("Zapytanie do bazy danych: " + user);
+                console.log("Zapytanie do bazy danych: " + n_user);
+                $.get("config.php?user=" + user, function(data) {
                     console.log("Odpowiedź serwera: " + data);
                     if (data.length == 0) {
-                        alert("Konto użytkownika zostało utworzone pomyślnie");
-                        window.location.href = "login.html"
+                        //$.get("config.php?n_user=" + n_user, function(data) {
+                            alert("Konto użytkownika zostało utworzone pomyślnie");
+                            window.location.href = "login.html"
+                        //}, 'json');
                     } else if (data.length > 0) {
                         alert("Nazwa użytkownika jest już zajęta");
                     }
