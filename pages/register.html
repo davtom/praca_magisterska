@@ -90,19 +90,23 @@
                 var n_user = "INSERT INTO users (username,password,name,surname) VALUES ('" + username + "','" + password + "','" + name + "','" + surname + "')";
                 console.log("Zapytanie do bazy danych: " + user);
                 console.log("Zapytanie do bazy danych: " + n_user);
-                $.get("config.php?user=" + user, function(data) {
+                $.get("login.php?user=" + user, function(data) {
                     console.log("Odpowiedź serwera: " + data);
-                    if (data.length == 0) {
-                        //$.get("config.php?n_user=" + n_user, function(data) {
-                            alert("Konto użytkownika zostało utworzone pomyślnie");
-                            window.location.href = "login.html"
-                        //}, 'json');
-                    } else if (data.length > 0) {
+                    if (data.length > 0) {
+                        // Nazwa użytkownika jest zajęta
                         alert("Nazwa użytkownika jest już zajęta");
-                    }
+                    } else {
+                        // Nazwa użytkownika jest dostępna, wykonaj zapytanie do utworzenia użytkownika
+                        console.log("Nazwa użytkownika jest dostępna, tworzenie użytkownika...");
+                        $.get("register.php?n_user=" + n_user, function(data) {
+                            
+                        }, 'json');
+                        alert("Konto użytkownika zostało utworzone pomyślnie");
+                        window.location.href = "login.html";
+                    } 
                 }, 'json');
             } else {
-                
+                // Walidacja nie powiodła się, wyświetl błędy walidacji
             }
         }
     </script>
