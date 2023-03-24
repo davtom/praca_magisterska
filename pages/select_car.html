@@ -14,8 +14,7 @@
     </style>
 </head>
 <body class="body_load">
-    <div class="style_block_top"></div>
-    <div class="style_block_bot"></div>
+    
     
     <a href="main.html"><img class="back_arrow" src="../img/downarrow.png"></a>
     
@@ -48,7 +47,7 @@
                             var mileage = data[i].mileage;
                             var power = data[i].power;
     
-                            var carRow = "<tr><td><img class='car_img' src='../img/car.png'></td><td>" + make + "</td><td>" + model + "</td><td>" + year + "</td><td><form method='POST' action='edit_car.html'><input type='hidden' name='carid' value='" + carId + "'><input class='select_car_btn' name='select_car' type='submit' value='>'></form></td></tr>";
+                            var carRow = "<tr><td><img class='car_img' src='../img/car.png'></td><td>" + make + "</td><td>" + model + "</td><td>" + year + "</td><td><form method='POST' action='display_car.html'><input type='hidden' name='carid' value='" + carId + "'><input class='select_car_btn' name='select_car' type='submit' value='>'></form></td></tr>";
                             $(".car_table").append(carRow);
                         }
                         
@@ -60,50 +59,8 @@
             }
         </script>
     </div>
+    <div class="style_block_top"></div>
+    <div class="style_block_bot"></div>
 </body>
     
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

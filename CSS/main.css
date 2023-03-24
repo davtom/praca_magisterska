@@ -257,6 +257,14 @@ a{
     
 }
 
+.help-block{
+    
+    margin-left: 2vw;
+    color: darkred;
+    font-size: 2.5vw;
+    
+}
+
 .car_img{
     
     display: flex;
@@ -417,4 +425,4 @@ textarea{
     border: 1vw dashed black;
     border-radius: 50%;
     
-}		
+}

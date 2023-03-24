@@ -14,14 +14,12 @@
     </style>
 </head>
 <body class="body_load">
-    <div class="style_block_top"></div>
-    <div class="style_block_bot"></div>
     
     <a href="select_car.html"><img class="back_arrow" src="../img/downarrow.png"></a>
     
-    <div class="wrapper">
+    <div class="wrapper" style="display: flex;justify-content: center;align-items: center;height: 100vh;">
 
-        <table>
+        <table style="margin: auto;">
             <tr>
             <tr><td><label>Marka:</label><span class="help-block"><a id="make_err"></a></span></td></tr>
                 <tr><td><input type="text" minlength='1' name="make" value=""></td></tr>
@@ -52,72 +50,81 @@
             <tr></tr>
         </table>
     </div>
+    
+    <div class="style_block_top"></div>
+    <div class="style_block_bot"></div>
 </body>
     
     <script>
-     function AddCar() {
-            var make = document.getElementsByName('make')[0].value;
-            var model = document.getElementsByName('model')[0].value;
-            var year = document.getElementsByName('year')[0].value;
-            var capacity = document.getElementsByName('capacity')[0].value;
-            var power = document.getElementsByName('power')[0].value;
-            var mileage = document.getElementsByName('mileage')[0].value;
-            
-            //walidacja pola make
-            if (make === '') {
-                document.getElementById('make_err').innerHTML = 'Nie podano marki';
-            } else {
-                document.getElementById('make_err').innerHTML = '';
+    if(sessionStorage.getItem("loggedIn") == "true") {
+        var userid = sessionStorage.getItem("userId");
+        
+         function AddCar() {
+                var make = document.getElementsByName('make')[0].value;
+                var model = document.getElementsByName('model')[0].value;
+                var year = document.getElementsByName('year')[0].value;
+                var capacity = document.getElementsByName('capacity')[0].value;
+                var power = document.getElementsByName('power')[0].value;
+                var mileage = document.getElementsByName('mileage')[0].value;
+
+                //walidacja pola make
+                if (make === '') {
+                    document.getElementById('make_err').innerHTML = 'Nie podano marki';
+                } else {
+                    document.getElementById('make_err').innerHTML = '';
+                }
+
+                //walidacja pola password
+                if (model === '') {
+                    document.getElementById('model_err').innerHTML = 'Nie podano modelu';
+                } else {
+                    document.getElementById('model_err').innerHTML = '';
+                }
+
+                //walidacja pola year
+                if (year === '') {
+                    document.getElementById('year_err').innerHTML = 'Nie podano roku';
+                } else {
+                    document.getElementById('year_err').innerHTML = '';
+                }
+
+                //walidacja pola capacity
+                if (capacity === '') {
+                    document.getElementById('capacity_err').innerHTML = 'Nie podano pojemności';
+                } else {
+                    document.getElementById('capacity_err').innerHTML = '';
+                }
+
+                //walidacja pola power
+                if (power === '') {
+                    document.getElementById('power_err').innerHTML = 'Nie podano mocy';
+                } else {
+                    document.getElementById('power_err').innerHTML = '';
+                }
+
+                //walidacja pola mileage
+                if (mileage === '') {
+                    document.getElementById('mileage_err').innerHTML = 'Nie podano przebiegu';
+                } else {
+                    document.getElementById('mileage_err').innerHTML = '';
+                }
+
+                //jeżeli wszystko jest wypełnione
+                if (make != '' && model != '' && year != '' && capacity != '' && power != '' && mileage != '') {
+                    var n_car = "INSERT INTO cars (user_id,make,model,year,capacity,mileage,power) VALUES ('" + userid + "','" + make + "','" + model + "','" + year + "','" + capacity + "','" + mileage + "','" + power + "')";
+                    console.log("Zapytanie do bazy danych: " + n_car);
+                    $.get("add_car.php?n_car=" + n_car, function(data) {
+                        console.log("Odpowiedź serwera: " + data);
+                    }, 'json');
+                    alert("Samochód zostało dodany do Twojego konta");
+                    window.location.href = "select_car.html";
+                } else {
+                    // Walidacja nie powiodła się, wyświetl błędy walidacji
+                }
             }
-            
-            //walidacja pola password
-            if (model === '') {
-                document.getElementById('model_err').innerHTML = 'Nie podano modelu';
-            } else {
-                document.getElementById('model_err').innerHTML = '';
+        } else {
+                window.location.href = "login.html";
             }
-            
-            //walidacja pola year
-            if (year === '') {
-                document.getElementById('year_err').innerHTML = 'Nie podano roku';
-            } else {
-                document.getElementById('year_err').innerHTML = '';
-            }
-            
-            //walidacja pola capacity
-            if (capacity === '') {
-                document.getElementById('capacity_err').innerHTML = 'Nie podano pojemności';
-            } else {
-                document.getElementById('capacity_err').innerHTML = '';
-            }
-         
-            //walidacja pola power
-            if (power === '') {
-                document.getElementById('power_err').innerHTML = 'Nie podano mocy';
-            } else {
-                document.getElementById('power_err').innerHTML = '';
-            }
-         
-            //walidacja pola mileage
-            if (mileage === '') {
-                document.getElementById('mileage_err').innerHTML = 'Nie podano przebiegu';
-            } else {
-                document.getElementById('mileage_err').innerHTML = '';
-            }
-            
-            //jeżeli wszystko jest wypełnione
-            if (make != '' && model != '' && year != '' && capacity != '' && power != '' && mileage != '') {
-                var n_car = "INSERT INTO cars (make,model,year,capacity,mileage,power) VALUES ('" + make + "','" + model + "','" + year + "','" + capacity + "','" + power + "','" + mileage + "')";
-                console.log("Zapytanie do bazy danych: " + n_car);
-                $.get("add_car.php?user=" + n_car, function(data) {
-                    console.log("Odpowiedź serwera: " + data);
-                }, 'json');
-                alert("Samochód zostało dodany do Twojego konta");
-                window.location.href = "select_car.html";
-            } else {
-                // Walidacja nie powiodła się, wyświetl błędy walidacji
-            }
-        }
      </script>
 
 </html>
