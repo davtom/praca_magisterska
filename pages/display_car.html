@@ -24,41 +24,83 @@
 
     <div id="car_param"><b>Marka:</b> <a id="make"></a>&nbsp;&nbsp;&nbsp;<b>Model:</b> <a id="model"></a>&nbsp;&nbsp;&nbsp;</div>
 
-    <img class='img_car' src="../img/car.png"><div id="car_mileage"><b>Rok:</b> <a id="year"></a>r.<br/><b>Moc:</b> <a id="power"></a>KM<br/><b>Przebieg:</b> <a id="mileage"></a>KM <a href='change_mileage.html'><img class='mileage_change' src='../img/nok.png'></a> </div>
+    <img class='img_car' src="../img/car.png"><div id="car_mileage"><b>Rok:</b> <a id="year"></a>r.<br/><b>Moc:</b> <a id="power"></a>KM<br/><b>Przebieg:</b> <a id="mileage"></a>KM <a onclick="changeMileage()"><img class='mileage_change' src='../img/nok.png'></a> </div>
 
-    <a href='add_services.html'><img class='add_services' src='../img/nok.png'></a>
+    <a onclick="addService()"><img class='add_services' src='../img/nok.png'></a>
 
     <div id="car_services">
     <table class="service_table"><tr><td><b>Data</b></td><td><b>Wykonana czynność</b></td></tr></table>
     <div id="services_list">
 
-    <table class="service_table">
+    <table class="service_table" id="service_table">
         <script>
+            var params = new URLSearchParams(window.location.search);
+            var carId = params.get('id');
             
+            var services = "SELECT * FROM services WHERE car_id='" + carId + "'";
+            console.log("Zapytanie do bazy danych: " + services);
+            $.get("display_car.php?services=" + services, function(data) {
+                console.log("Odpowiedź serwera: " + data);
+                if (data.length != 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var datewhen = data[i].datewhen;
+                        var what = data[i].what;
+    
+                        var servRow = "<tr class='border_top'><td>" + datewhen + "</td><td class='border_left'>" + what + "</td></tr>";
+                        $("#service_table").append(servRow);
+                        }
+                    }
+                    
+                }, 'json');
         </script>
     </table>
 
     </div>
     </div>
-    <a href='delete_car.html'><img class='delete_car' src='../img/trash.png'></a>
+    <a onclick="deleteCar()"><img class='delete_car' src='../img/trash.png'></a>
 </body>
 
     <script>
-        if(sessionStorage.getItem("loggedIn") == "true") {
-            // pobierz nazwę użytkownika z sessionStorage i wyświetl ją na stronie
-            var make = sessionStorage.getItem("carMake");
-            var model = sessionStorage.getItem("carModel");
-            var year = sessionStorage.getItem("carYear");
-            var power = sessionStorage.getItem("carPower");
-            var mileage = sessionStorage.getItem("carMileage");
+        if(sessionStorage.getItem("loggedIn") == "true") {            
+            var params = new URLSearchParams(window.location.search);
+            var carId = params.get('id');
+            var make = params.get('make');
+            var model = params.get('model');
+            var capacity = params.get('capacity');
+            var year = params.get('year');
+            var mileage = params.get('mileage');
+            var power = params.get('power');
             
-            document.getElementById("make").innerHTML = make;
-            document.getElementById("model").innerHTML = model;
-            document.getElementById("year").innerHTML = year;
-            document.getElementById("power").innerHTML = power;
-            document.getElementById("mileage").innerHTML = mileage;
+            if(carId != '' && make != '' && model != '' && capacity != '' && year != '' && mileage != '' && power != '') {
+                document.getElementById("make").innerHTML = make;
+                document.getElementById("model").innerHTML = model;
+                document.getElementById("year").innerHTML = year;
+                document.getElementById("power").innerHTML = power;
+                document.getElementById("mileage").innerHTML = mileage;
+            } else {
+                window.location.href = "select_car.html";
+            }
         } else {
-            window.location.href = "select_car.html";
+            window.location.href = "login.html";
+        }
+        
+        function addService() {
+            sessionStorage.setItem("carId", carId);
+            
+            window.location.href = "add_services.html";
+        }
+        
+        function changeMileage() {
+            sessionStorage.setItem("carId", carId);
+            sessionStorage.setItem("carMileage", mileage);
+            
+            window.location.href = "change_mileage.html";
+        }
+        
+        function deleteCar() {
+            sessionStorage.setItem("carId", carId);
+            
+            window.location.href='delete_car.html'
         }
     </script>
 

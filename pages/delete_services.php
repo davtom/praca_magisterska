@@ -8,10 +8,10 @@ if ($link === false) {
 }
 
 // Pobranie zapytania z parametru GET
-$services = $_GET["services"];
+$d_serv = $_GET["d_serv"];
 
 // Wykonanie zapytania
-$result = mysqli_query($link, $services);
+$result = mysqli_query($link, $d_serv);
 
 // Sprawdzenie czy zapytanie się powiodło
 if ($result === false) {

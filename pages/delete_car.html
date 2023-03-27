@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <link rel="stylesheet" href="../CSS/load.css">
+        <link rel="stylesheet" href="../CSS/main.css">
+        <link rel="stylesheet" href="../CSS/loginregister.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body class="body_load">
+    
+    <a href="select_car.html"><img class="back_arrow" src="../img/downarrow.png"></a>
+    
+    <div class="wrapper">
+        
+        
+        <table>
+            <tr><td><h2>Na pewno?</h2></td></tr>
+            <tr>
+                <td><input style="height: 20vw;" type="submit" name='yes' value="Tak" onclick="deleteYes()"></td>
+            <tr>
+                <td><input style="height: 20vw;" type="submit" name='no' value="Nie" onclick="deleteNo()"></td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+        </table>
+    </div>
+    
+    <div class="style_block_top"></div>
+    <div class="style_block_bot"></div>
+    </body>   
+    
+    <script>
+        if(sessionStorage.getItem("loggedIn") == "true") {
+            var carid = sessionStorage.getItem("carId");
+            
+            function deleteYes() {
+                var d_car = "DELETE FROM cars WHERE id='" + carid + "'";
+                console.log("Zapytanie do bazy danych: " + d_car);
+                $.get("delete_car.php?d_car=" + d_car, function(data) {
+                    console.log("Odpowiedź serwera: " + data);
+                }, 'json');
+                
+                var d_serv = "DELETE FROM services WHERE car_id='" + carid + "'";
+                console.log("Zapytanie do bazy danych: " + d_serv);
+                $.get("delete_services.php?d_serv=" + d_serv, function(data) {
+                    console.log("Odpowiedź serwera: " + data);
+                }, 'json');
+                
+                alert("Samochód został pomyślnie usunięty");
+                window.location.href = "select_car.html";
+            }
+            
+            function deleteNo() {
+                window.location.href = "select_car.html";
+            }
+            
+        } else {
+            window.location.href = "login.html";
+        }
+    </script>
+    
+</html>

@@ -47,13 +47,15 @@
                             var mileage = data[i].mileage;
                             var power = data[i].power;
     
-                            var carRow = "<tr><td><img class='car_img' src='../img/car.png'></td><td>" + make + "</td><td>" + model + "</td><td>" + year + "</td><td><form method='POST' action='display_car.html'><input type='hidden' name='carid' value='" + carId + "'><input class='select_car_btn' name='select_car' type='submit' value='>'></form></td></tr>";
+                            var carRow = "<tr><td><img class='car_img' src='../img/car.png'></td><td>" + make + "</td><td>" + model + "</td><td>" + year + "</td><td><input type='hidden' name='carid' value='" + carId + "'><a class='select_car_btn' name='select_car' type='submit' href='display_car.html?id=" + carId + "&make=" + make + "&model=" + model + "&capacity=" + capacity + "&year=" + year + "&mileage=" + mileage + "&power=" + power + "'></a></td></tr>";
                             $(".car_table").append(carRow);
                         }
                         
                         $("body").append("</table>");
                     }
+                    
                 }, 'json');
+                
             } else {
                 window.location.href = "login.html";
             }
