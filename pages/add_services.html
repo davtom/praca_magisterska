@@ -15,7 +15,7 @@
 </head>
 <body class="body_load">
     
-    <a href="select_car.html"><img class="back_arrow" src="../img/downarrow.png"></a>
+    <a href="display_car.html"><img class="back_arrow" src="../img/downarrow.png"></a>
     
     <div class="wrapper">
         
@@ -44,7 +44,7 @@
     </body>
     
     <script>
-    if(sessionStorage.getItem("loggedIn") == "true") {
+    if(sessionStorage.getItem("loggedIn") == "true" && sessionStorage.getItem("selectCar") == "true") {
         
          function AddService() {
                 var carid = sessionStorage.getItem("carId");
@@ -74,14 +74,16 @@
                         console.log("Odpowiedź serwera: " + data);
                     }, 'json');
                     alert("Serwis został dodany do Twojego samochodu");
-                    window.location.href = "select_car.html";
+                    window.location.href = "display_car.html";
                 } else {
                     // Walidacja nie powiodła się, wyświetl błędy walidacji
                 }
             }
+        } else if (sessionStorage.getItem("loggedIn") == "true" && sessionStorage.getItem("selectCar") != "true") {
+            window.location.href = "select_car.html";
         } else {
-                window.location.href = "login.html";
-            }
+            window.location.href = "login.html";
+        }
      </script>
     
 </html>

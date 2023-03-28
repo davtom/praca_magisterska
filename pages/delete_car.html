@@ -15,7 +15,7 @@
 </head>
 <body class="body_load">
     
-    <a href="select_car.html"><img class="back_arrow" src="../img/downarrow.png"></a>
+    <a href="display_car.html"><img class="back_arrow" src="../img/downarrow.png"></a>
     
     <div class="wrapper">
         
@@ -37,7 +37,7 @@
     </body>   
     
     <script>
-        if(sessionStorage.getItem("loggedIn") == "true") {
+        if(sessionStorage.getItem("loggedIn") == "true" && sessionStorage.getItem("selectCar") == "true") {
             var carid = sessionStorage.getItem("carId");
             
             function deleteYes() {
@@ -61,6 +61,8 @@
                 window.location.href = "select_car.html";
             }
             
+        } else if (sessionStorage.getItem("loggedIn") == "true" && sessionStorage.getItem("selectCar") != "true") {
+            window.location.href = "select_car.html";
         } else {
             window.location.href = "login.html";
         }

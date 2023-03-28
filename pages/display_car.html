@@ -34,8 +34,7 @@
 
     <table class="service_table" id="service_table">
         <script>
-            var params = new URLSearchParams(window.location.search);
-            var carId = params.get('id');
+            var carId = sessionStorage.getItem("carId");
             
             var services = "SELECT * FROM services WHERE car_id='" + carId + "'";
             console.log("Zapytanie do bazy danych: " + services);
@@ -61,45 +60,35 @@
 </body>
 
     <script>
-        if(sessionStorage.getItem("loggedIn") == "true") {            
-            var params = new URLSearchParams(window.location.search);
-            var carId = params.get('id');
-            var make = params.get('make');
-            var model = params.get('model');
-            var capacity = params.get('capacity');
-            var year = params.get('year');
-            var mileage = params.get('mileage');
-            var power = params.get('power');
+        if(sessionStorage.getItem("loggedIn") == "true" && sessionStorage.getItem("selectCar") == "true") {
+            var make = sessionStorage.getItem("carMake");
+            var model = sessionStorage.getItem("carModel");
+            var capacity = sessionStorage.getItem("carCapacity");
+            var year = sessionStorage.getItem("carYear");
+            var mileage = sessionStorage.getItem("carMileage");
+            var power = sessionStorage.getItem("carPower");
             
-            if(carId != '' && make != '' && model != '' && capacity != '' && year != '' && mileage != '' && power != '') {
-                document.getElementById("make").innerHTML = make;
-                document.getElementById("model").innerHTML = model;
-                document.getElementById("year").innerHTML = year;
-                document.getElementById("power").innerHTML = power;
-                document.getElementById("mileage").innerHTML = mileage;
-            } else {
-                window.location.href = "select_car.html";
-            }
+            document.getElementById("make").innerHTML = make;
+            document.getElementById("model").innerHTML = model;
+            document.getElementById("year").innerHTML = year;
+            document.getElementById("power").innerHTML = power;
+            document.getElementById("mileage").innerHTML = mileage;
+            
+        } else if (sessionStorage.getItem("loggedIn") == "true" && sessionStorage.getItem("selectCar") != "true") {
+            window.location.href = "select_car.html";
         } else {
             window.location.href = "login.html";
         }
         
-        function addService() {
-            sessionStorage.setItem("carId", carId);
-            
+        function addService() {            
             window.location.href = "add_services.html";
         }
         
         function changeMileage() {
-            sessionStorage.setItem("carId", carId);
-            sessionStorage.setItem("carMileage", mileage);
-            
             window.location.href = "change_mileage.html";
         }
         
         function deleteCar() {
-            sessionStorage.setItem("carId", carId);
-            
             window.location.href='delete_car.html'
         }
     </script>

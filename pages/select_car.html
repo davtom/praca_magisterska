@@ -23,6 +23,22 @@
             if(sessionStorage.getItem("loggedIn") == "true") {
                 var userid = sessionStorage.getItem("userId");
                 
+                function displayCar(carId, make, model, capacity, year, mileage, power) {
+                    sessionStorage.setItem("selectCar", "true");
+                    
+                    sessionStorage.setItem("carId", carId);
+                    sessionStorage.setItem("carMake", make);
+                    sessionStorage.setItem("carModel", model);
+                    sessionStorage.setItem("carCapacity", capacity);
+                    sessionStorage.setItem("carYear", year);
+                    sessionStorage.setItem("carMileage", mileage);
+                    sessionStorage.setItem("carPower", power);
+
+                    console.log("Zapamiętane dane: " + carId, make, model, capacity, year, mileage, power);
+
+                    window.location.href = "display_car.html";
+                }
+                
                 var cars = "SELECT * FROM cars WHERE user_id='" + userid + "'";
                 console.log("Zapytanie do bazy danych: " + cars);
                 $.get("select_car.php?cars=" + cars, function(data) {
@@ -47,7 +63,7 @@
                             var mileage = data[i].mileage;
                             var power = data[i].power;
     
-                            var carRow = "<tr><td><img class='car_img' src='../img/car.png'></td><td>" + make + "</td><td>" + model + "</td><td>" + year + "</td><td><input type='hidden' name='carid' value='" + carId + "'><a class='select_car_btn' name='select_car' type='submit' href='display_car.html?id=" + carId + "&make=" + make + "&model=" + model + "&capacity=" + capacity + "&year=" + year + "&mileage=" + mileage + "&power=" + power + "'></a></td></tr>";
+                            var carRow = "<tr><td><img class='car_img' src='../img/car.png'></td><td>" + make + "</td><td>" + model + "</td><td>" + year + "</td><td><input type='hidden' name='carid' value='" + carId + "'><a class='select_car_btn' name='select_car' type='submit' onclick='displayCar("+carId+", \""+make+"\", \""+model+"\", \""+capacity+"\", \""+year+"\", \""+mileage+"\", \""+power+"\")'></a></td></tr>";
                             $(".car_table").append(carRow);
                         }
                         
