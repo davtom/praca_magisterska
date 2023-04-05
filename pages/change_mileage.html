@@ -56,9 +56,9 @@
                     document.getElementById('mileage_err').innerHTML = '';
                     //jeżeli wszystko jest wypełnione
                     if (mileage != '') {
-                        var n_mileage = "UPDATE cars SET mileage='" + mileage + "' WHERE id='" + carid + "'";
-                        console.log("Zapytanie do bazy danych: " + n_mileage);
-                        $.get("change_mileage.php?n_mileage=" + n_mileage, function(data) {
+                        var query1 = "UPDATE cars SET mileage='" + mileage + "' WHERE id='" + carid + "'";
+                        console.log("Zapytanie do bazy danych: " + query1);
+                        $.get("query1.php?query1=" + query1, function(data) {
                             console.log("Odpowiedź serwera: " + data);
                         }, 'json');
                         alert("Przebieg samochodu został zaktualizowany");

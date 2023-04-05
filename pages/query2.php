@@ -8,10 +8,10 @@ if ($link === false) {
 }
 
 // Pobranie zapytania z parametru GET
-$n_car = $_GET["n_car"];
+$query2 = $_GET["query2"];
 
 // Wykonanie zapytania
-$result = mysqli_query($link, $n_car);
+$result = mysqli_query($link, $query2);
 
 // Sprawdzenie czy zapytanie się powiodło
 if ($result === false) {

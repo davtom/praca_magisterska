@@ -68,9 +68,9 @@
 
                 //jeżeli wszystko jest wypełnione
                 if (date != '' && what != '') {
-                    var n_service = "INSERT INTO services (car_id,datewhen,what) VALUES ('" + carid + "','" + date + "','" + what + "')";
-                    console.log("Zapytanie do bazy danych: " + n_service);
-                    $.get("add_services.php?n_service=" + n_service, function(data) {
+                    var query1 = "INSERT INTO services (car_id,datewhen,what) VALUES ('" + carid + "','" + date + "','" + what + "')";
+                    console.log("Zapytanie do bazy danych: " + query1);
+                    $.get("query1.php?query1=" + query1, function(data) {
                         console.log("Odpowiedź serwera: " + data);
                     }, 'json');
                     alert("Serwis został dodany do Twojego samochodu");

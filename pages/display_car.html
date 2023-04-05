@@ -36,9 +36,9 @@
         <script>
             var carId = sessionStorage.getItem("carId");
             
-            var services = "SELECT * FROM services WHERE car_id='" + carId + "'";
-            console.log("Zapytanie do bazy danych: " + services);
-            $.get("display_car.php?services=" + services, function(data) {
+            var query1 = "SELECT * FROM services WHERE car_id='" + carId + "'";
+            console.log("Zapytanie do bazy danych: " + query1);
+            $.get("query1.php?query1=" + query1, function(data) {
                 console.log("Odpowiedź serwera: " + data);
                 if (data.length != 0) {
                     for (var i = 0; i < data.length; i++) {

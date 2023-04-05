@@ -64,9 +64,9 @@
             if (username != '' && password != '') {
                 // wywołanie API i sprawdzenie czy użytkownik istnieje w bazie danych
                 // wysłanie zapytania GET i sprawdzenie czy użytkownik istnieje w bazie danych
-                var user = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'";
-                console.log("Zapytanie do bazy danych: " + user);
-                $.get("login.php?user=" + user, function(data) {
+                var query1 = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'";
+                console.log("Zapytanie do bazy danych: " + query1);
+                $.get("query1.php?query1=" + query1, function(data) {
                     console.log("Odpowiedź serwera: " + data);
                     if (data.length == 0) {
                         alert("Błędny login lub hasło");

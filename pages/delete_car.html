@@ -41,15 +41,15 @@
             var carid = sessionStorage.getItem("carId");
             
             function deleteYes() {
-                var d_car = "DELETE FROM cars WHERE id='" + carid + "'";
-                console.log("Zapytanie do bazy danych: " + d_car);
-                $.get("delete_car.php?d_car=" + d_car, function(data) {
+                var query1 = "DELETE FROM cars WHERE id='" + carid + "'";
+                console.log("Zapytanie do bazy danych: " + query1);
+                $.get("query1.php?query1=" + query1, function(data) {
                     console.log("Odpowiedź serwera: " + data);
                 }, 'json');
                 
-                var d_serv = "DELETE FROM services WHERE car_id='" + carid + "'";
-                console.log("Zapytanie do bazy danych: " + d_serv);
-                $.get("delete_services.php?d_serv=" + d_serv, function(data) {
+                var query2 = "DELETE FROM services WHERE car_id='" + carid + "'";
+                console.log("Zapytanie do bazy danych: " + query2);
+                $.get("query2.php?query2=" + query2, function(data) {
                     console.log("Odpowiedź serwera: " + data);
                 }, 'json');
                 

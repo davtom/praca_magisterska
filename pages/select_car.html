@@ -39,9 +39,9 @@
                     window.location.href = "display_car.html";
                 }
                 
-                var cars = "SELECT * FROM cars WHERE user_id='" + userid + "'";
-                console.log("Zapytanie do bazy danych: " + cars);
-                $.get("select_car.php?cars=" + cars, function(data) {
+                var query1 = "SELECT * FROM cars WHERE user_id='" + userid + "'";
+                console.log("Zapytanie do bazy danych: " + query1);
+                $.get("query1.php?query1=" + query1, function(data) {
                     console.log("Odpowiedź serwera: " + data);
                     if (data.length == 0) {
                         var noCarInfo = "<span class='no_car_info'>Nie masz jeszcze dodanego żadnego samochodu, możesz go dodać klikajać przycisk poniżej</span><a href='add_car.html'>";

@@ -111,9 +111,9 @@
 
                 //jeżeli wszystko jest wypełnione
                 if (make != '' && model != '' && year != '' && capacity != '' && power != '' && mileage != '') {
-                    var n_car = "INSERT INTO cars (user_id,make,model,year,capacity,mileage,power) VALUES ('" + userid + "','" + make + "','" + model + "','" + year + "','" + capacity + "','" + mileage + "','" + power + "')";
-                    console.log("Zapytanie do bazy danych: " + n_car);
-                    $.get("add_car.php?n_car=" + n_car, function(data) {
+                    var query1 = "INSERT INTO cars (user_id,make,model,year,capacity,mileage,power) VALUES ('" + userid + "','" + make + "','" + model + "','" + year + "','" + capacity + "','" + mileage + "','" + power + "')";
+                    console.log("Zapytanie do bazy danych: " + query1);
+                    $.get("query1.php?query1=" + query1, function(data) {
                         console.log("Odpowiedź serwera: " + data);
                     }, 'json');
                     alert("Samochód zostało dodany do Twojego konta");
@@ -123,8 +123,8 @@
                 }
             }
         } else {
-                window.location.href = "login.html";
-            }
+            window.location.href = "login.html";
+        }
      </script>
 
 </html>

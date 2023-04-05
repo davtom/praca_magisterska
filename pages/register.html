@@ -86,11 +86,11 @@
             
             //jeżeli wszystko jest wypełnione
             if (username != '' && password != '' && name != '' && surname != '') {
-                var user = "SELECT * FROM users WHERE username='" + username + "'";
-                var n_user = "INSERT INTO users (username,password,name,surname) VALUES ('" + username + "','" + password + "','" + name + "','" + surname + "')";
-                console.log("Zapytanie do bazy danych: " + user);
-                console.log("Zapytanie do bazy danych: " + n_user);
-                $.get("login.php?user=" + user, function(data) {
+                var query1 = "SELECT * FROM users WHERE username='" + username + "'";
+                var query2 = "INSERT INTO users (username,password,name,surname) VALUES ('" + username + "','" + password + "','" + name + "','" + surname + "')";
+                console.log("Zapytanie do bazy danych: " + query1);
+                console.log("Zapytanie do bazy danych: " + query2);
+                $.get("query1.php?query1=" + query1, function(data) {
                     console.log("Odpowiedź serwera: " + data);
                     if (data.length > 0) {
                         // Nazwa użytkownika jest zajęta
@@ -98,7 +98,7 @@
                     } else {
                         // Nazwa użytkownika jest dostępna, wykonaj zapytanie do utworzenia użytkownika
                         console.log("Nazwa użytkownika jest dostępna, tworzenie użytkownika...");
-                        $.get("register.php?n_user=" + n_user, function(data) {
+                        $.get("query2.php?query2=" + query2, function(data) {
                             
                         }, 'json');
                         alert("Konto użytkownika zostało utworzone pomyślnie");
