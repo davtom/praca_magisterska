@@ -48,13 +48,16 @@
     <div class="style_block_bot"></div>
 
     </body>
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
         function Rejestracja() {
             var username = document.getElementsByName('username')[0].value;
             var password = document.getElementsByName('password')[0].value;
             var name = document.getElementsByName('name')[0].value;
             var surname = document.getElementsByName('surname')[0].value;
+            
+            var hash = CryptoJS.MD5(password).toString();
             
             //walidacja pola username
             if (username === '') {
@@ -87,7 +90,7 @@
             //jeżeli wszystko jest wypełnione
             if (username != '' && password != '' && name != '' && surname != '') {
                 var query1 = "SELECT * FROM users WHERE username='" + username + "'";
-                var query2 = "INSERT INTO users (username,password,name,surname) VALUES ('" + username + "','" + password + "','" + name + "','" + surname + "')";
+                var query2 = "INSERT INTO users (username,password,name,surname) VALUES ('" + username + "','" + hash + "','" + name + "','" + surname + "')";
                 console.log("Zapytanie do bazy danych: " + query1);
                 console.log("Zapytanie do bazy danych: " + query2);
                 $.get("query1.php?query1=" + query1, function(data) {
